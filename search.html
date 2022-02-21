@@ -6,12 +6,34 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
   </head>
-
+  <link rel="stylesheet" href="../styles/main.css">
   <body>
+    <div id="container">
+      <div id="sidebar">
+      </div>
     <div id="main">
       <!--No need to add sidebar here, directly display search results here only-->
 
       <!-- show headline, description and image -->
     </div>
+  </div>
   </body>
 </html>
+<script type="module">
+
+import sidebar from "./components/sidebar.js"
+import  storeSearchterm  from "./scripts/search.js"
+import { appendArticles } from "./scripts/main.js"
+let leftbar=document.getElementById("sidebar")
+leftbar.innerHTML=sidebar()
+
+let search=localStorage.getItem("search_term")
+
+let resdata=await storeSearchterm(`https://shrouded-earth-23381.herokuapp.com/api/search/?q=${search}`)
+
+let parent=document.getElementById("main")
+
+let display=appendArticles(resdata,parent)
+
+
+</script>

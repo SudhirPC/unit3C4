@@ -6,12 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Home</title>
   </head>
-
+ <link rel="stylesheet" href="../styles/main.css">
   <body>
     <div id="container">
       <div id="sidebar">
         <!--DO NOT CHANGE THIS ID's-->
         <!--Append the horizontal navbar(sidebar) here only-->
+
       </div>
 
       <div id="main">
@@ -21,3 +22,31 @@
     </div>
   </body>
 </html>
+<script type="module">
+
+import sidebar from "./components/sidebar.js"
+import { apiCall, appendArticles } from "./scripts/main.js"
+
+let leftbar=document.getElementById("sidebar")
+ leftbar.innerHTML=sidebar()
+
+ let res=await apiCall("https://shrouded-earth-23381.herokuapp.com/api/headlines/india")
+ console.log(res)
+let main= document.getElementById("main")
+let display=appendArticles(res,main)
+
+
+let searchbar=document.getElementById("searchbar") 
+ searchbar=addEventListener("keypress",function(el){
+
+  if(el.key=="Enter"){
+    let localelement=document.getElementById("searchbar").value
+
+    localStorage.setItem("search_term",localelement)
+
+    window.location.href="search.html"
+
+  }
+ })
+
+</script>
